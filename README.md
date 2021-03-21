@@ -1,0 +1,1 @@
+A recreation of the linked list data structure within Ruby. Although Ruby doesn't really need such a data structure due to the way it handles arrays, such a program is a useful learning exercise.
