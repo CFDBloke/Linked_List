@@ -2,14 +2,14 @@
 
 # The linked list class
 class LinkedList
-  attr_reader :length
+  attr_reader :size, :head
 
   def initialize
     @head = nil
-    @length = 0
+    @size = 0
   end
 
-  def print_list
+  def to_s
     temp_node = @head
     print '|'
     loop do
@@ -24,11 +24,10 @@ class LinkedList
     if @head.nil?
       @head = Node.new(value)
     else
-      temp_node = @head
-      temp_node = temp_node.next_node until temp_node.next_node.nil?
-      temp_node.next_node = Node.new(value)
+      tail_node = find_tail
+      tail_node.next_node = Node.new(value)
     end
-    @length += 1
+    @size += 1
   end
 
   def prepend(value)
@@ -38,7 +37,27 @@ class LinkedList
       temp_node = @head
       @head = Node.new(value, temp_node)
     end
-    @length += 1
+    @size += 1
+  end
+
+  def tail
+    find_tail
+  end
+
+  def at(index)
+    temp_node = @head
+    index.times do
+      temp_node = temp_node.next_node
+    end
+    temp_node
+  end
+
+  private
+
+  def find_tail
+    tail_node = @head
+    tail_node = tail_node.next_node until tail_node.next_node.nil?
+    tail_node
   end
 end
 
@@ -58,5 +77,10 @@ list.append(1)
 list.prepend(45)
 list.prepend(8)
 list.append(34)
+list.append(376)
 
-puts list.print_list
+puts list.to_s
+puts list.size
+puts list.head.value
+puts list.tail.value
+puts list.at(3).value
